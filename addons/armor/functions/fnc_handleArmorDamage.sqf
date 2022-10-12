@@ -32,9 +32,10 @@ private _healthList = [];
 
     // 只有可命中护甲才进行计算步骤
     if((_hitArmor findIf {_x isEqualTo _gear}) != -1) then {
-        systemChat str [_damage, _mmPenned, _hitArmor, _hitPoint];
+
+        /* systemChat str [_damage, _mmPenned, _hitArmor, _hitPoint];
         systemChat str [_level, _maxhealth, _strength, _thickness, _material, _breakdownValue, _notBreakdownValue];
-        systemChat str _savedHealthList;
+        systemChat str _savedHealthList; */
 
         // 护甲机制
         if(_health > 0) then {
