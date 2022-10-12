@@ -5,7 +5,7 @@ class CfgVehicles {
             class ACE_Equipment {
                 class ACAS_CheckArmor {
                     displayName = "检查护甲";
-                    condition = "true";
+                    condition = "(stance _player) != 'PRONE'";
                     exceptions[] = {"isNotSwimming", "isNotInside", "isNotSitting"};
                     statement = "[_player] call acas_armor_fnc_checkarmor";
                 };
