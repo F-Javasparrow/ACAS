@@ -34,7 +34,7 @@ postbuild = [
 
 releasebuild = [
     "!version_set_release",
-    "@zip @aas_{{semver.major}}_{{semver.minor}}_{{semver.patch}}"
+    "@zip @acas_{{semver.major}}_{{semver.minor}}_{{semver.patch}}"
 ]
 
 [header_exts]
@@ -74,10 +74,10 @@ show_output = true
 
 [scripts.version_set_release]
 steps_linux = [
-    "sed -i -r -s 's/{version}/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/g' releases/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/@AAS/mod.cpp",
+    "sed -i -r -s 's/{version}/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/g' releases/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/@acas/mod.cpp",
 ]
 steps_windows = [
-    "powershell -Command foreach ($f in 'releases/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/@AAS/mod.cpp') {(Get-Content $f) -replace '{version}', '{{semver.major}}.{{semver.minor}}.{{semver.patch}}' -join \"`n\" ^| Set-Content -NoNewline $f; Add-Content -NoNewline \"`n\" $f}",
+    "powershell -Command foreach ($f in 'releases/{{semver.major}}.{{semver.minor}}.{{semver.patch}}/@acas/mod.cpp') {(Get-Content $f) -replace '{version}', '{{semver.major}}.{{semver.minor}}.{{semver.patch}}' -join \"`n\" ^| Set-Content -NoNewline $f; Add-Content -NoNewline \"`n\" $f}",
 ]
 only_release = true
 show_output = true

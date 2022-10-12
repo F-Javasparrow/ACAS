@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="acas">
+    <Package name="armor">
+        <Key ID="STR_acas_armor_Action_CheckArmor_Display">
+            <English>Check Vest Armor</English>
+            <Chinesesimp>检查胸部护甲</Chinesesimp>
+        </Key>
+        <Key ID="STR_acas_armor_category">
+            <English>Basic Settings</English>
+            <Chinesesimp>基础设置</Chinesesimp>
+        </Key>
+    </Package>
+</Project>

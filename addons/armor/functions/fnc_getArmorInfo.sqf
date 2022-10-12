@@ -1,4 +1,6 @@
+#include "script_component.hpp"
 params["_gear", "_hitPoint"];
+
 private _level = "0";
 private _armorInfo = ArmorLevel_0;
 private _materialInfo = ArmorType_CLOTH;

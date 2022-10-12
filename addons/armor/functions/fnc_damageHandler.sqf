@@ -12,10 +12,10 @@ if ((_allDamages select 0 select 0) > 0) then {
 
     if(_aceSelection == "HitBody") then {_aceSelection = "HitChest"};
     switch(_aceSelection) do {
-        case"HitHead":  {_hitArmor = [headgear _unit, "", ""]};
-        case"HitChest": {_hitArmor = ["", vest _unit, ""]};
-        case"HitLegs":  {_hitArmor = ["", "", uniform _unit]};
-        case"HitArms":  {_hitArmor = ["", "", uniform _unit]};
+        case"HitHead":  {_hitArmor = [headgear _unit]};
+        case"HitChest": {_hitArmor = [vest _unit, uniform _unit]};
+        case"HitLegs":  {_hitArmor = [uniform _unit]};
+        case"HitArms":  {_hitArmor = [uniform _unit]};
     };
 
     private _actualDamage = _damage;

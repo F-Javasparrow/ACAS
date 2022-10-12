@@ -12,7 +12,7 @@
 #define ArmorLevel_5          [55, 0.80, 0.85]
 #define ArmorLevel_6          [60, 0.90, 0.95]
 #define ArmorLevel_6P         [60, 0.95, 0.99]
-#define ArmorLevel_EOD        [50, 0.40, 0.99]
+#define ArmorLevel_EOD        [50, 0.40, 0.50]
 
 #define ArmorType_CLOTH       ["CLOTH",   0.00, 0.00]
 #define ArmorType_KEVLAR      ["KEVLAR",  0.10, 0.05]

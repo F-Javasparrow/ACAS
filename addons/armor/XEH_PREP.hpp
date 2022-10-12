@@ -1,13 +1,6 @@
-PREP(handleArmorDamage);
-PREP(initAIUnit);
-
-PREP(aceDamageHandler);
-PREP(handleDamageEhACE);
-PREP(receiveDamageACE);
-
-/*
+PREP(CheckArmor);
 PREP(damageHandler);
-PREP(handleArmorThickness);
-PREP(handleArmor);
+PREP(getArmorInfo);
+PREP(handleArmorDamage);
 PREP(handleDamageEh);
-*/
+PREP(receiveDamage);
