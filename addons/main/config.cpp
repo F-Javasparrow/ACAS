@@ -28,3 +28,10 @@ class CfgMods {
         description = "Issue Tracker: https://github.com/F-Javasparrow";
     };
 };
+
+class CfgWeapons {
+    #include "CfgVest.hpp"
+    #include "CfgUniform.hpp"
+}
+
+#include "CfgAmmo.hpp"

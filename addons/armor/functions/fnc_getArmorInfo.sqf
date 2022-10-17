@@ -3,7 +3,7 @@ params["_gear", "_hitPoint"];
 
 private _level = "0";
 private _armorInfo = ArmorLevel_0;
-private _materialInfo = ArmorType_CLOTH;
+private _materialInfo = ArmorType_KEVLAR;
 
 private _armor = [_gear, _hitPoint] call ace_medical_engine_fnc_getItemArmor;
 
@@ -14,9 +14,11 @@ switch(true) do {
     case(14 < _armor && _armor <= 18): {_level = "3"; _armorInfo = ArmorLevel_3};
     case(18 < _armor && _armor <= 22): {_level = "4"; _armorInfo = ArmorLevel_4};
     case(22 < _armor && _armor <= 26): {_level = "5"; _armorInfo = ArmorLevel_5};
-    case(26 < _armor && _armor <= 30): {_level = "6"; _armorInfo = ArmorLevel_6};
+    case(26 < _armor /* && _armor <= 30 */): {_level = "6"; _armorInfo = ArmorLevel_6};
+    /* 
     case(30 < _armor && _armor <= 75): {_level = "6P"; _armorInfo = ArmorLevel_6P};
-    case(75 < _armor): {_level="EOD"; _armorInfo = ArmorLevel_EOD};
+    case(75 < _armor): {_level="EOD"; _armorInfo = ArmorLevel_EOD}; 
+    */
 };
 
 private _material = getText(configFile >> "CfgWeapons" >> _gear >> "ItemInfo" >> "armorMaterial");
@@ -26,6 +28,7 @@ switch(_material) do {
     case"POLYMERS": {_materialInfo = ArmorType_POLYMERS};
     case"STELL":    {_materialInfo = ArmorType_STELL   };
     case"CERAMICS": {_materialInfo = ArmorType_CERAMICS};
+    default {_materialInfo = ArmorType_KEVLAR};
 };
 
 private _ouput = [_level];

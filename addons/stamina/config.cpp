@@ -11,14 +11,10 @@ class CfgPatches {
             "ace_main"
         };
         author = "Javasparrow";
-        url = "";
-        authorUrl = "";
+        url = CSTRING(URL);
         VERSION_CONFIG;
     };
 };
 
 #include "CfgEventHandlers.hpp"
-#include "CfgFunctions.hpp"
-#include "CfgVehicles.hpp"
-
-#include "ACE_Medical_Injuries.hpp"
+#include "CfgMove.hpp"

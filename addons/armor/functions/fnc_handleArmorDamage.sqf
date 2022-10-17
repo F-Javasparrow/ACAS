@@ -1,22 +1,44 @@
 #include "script_component.hpp"
-params ["_unit", "_damage", "_ammo", "_instigator", "_hitArmor", "_hitPoint"];
+params ["_unit", "_damage", "_ammo", "_instigator", "_hitArmor", "_hitPoint", "_typeOfDamage"];
 
 private _receivedDamage = false;
 private _vest = vestContainer _unit;
 
-// 获取命中子弹穿深参数
-private _caliber = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_Caliber");
-private _mass = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_bulletMass");
-if (_caliber isEqualTo 0) then {
-    _caliber = getNumber (configFile >> "CfgAmmo" >> _ammo >> "caliber");
-    _mass = (getNumber (configFile >> "CfgAmmo" >> _ammo >> "hit")) / 2;
+_damage = _damage * GVAR(damageCoef);
+
+private _caliber = 1;
+private _mass = 2;
+private _typicalSpeed = 380;
+private _armorPenetrationRatio = 0.3;
+private _mmPenned = 0;
+switch(_typeOfDamage) do {
+    case "bullet": {
+        _caliber = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_Caliber");
+        _mass = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_bulletMass");
+        _typicalSpeed = getNumber (configFile >> "CfgAmmo" >> _ammo >> "typicalSpeed");
+        _armorPenetrationRatio = (getNumber (configFile >> "CfgAmmo" >> _ammo >> "armorPenetrationRatio")) / 100;
+
+        _mmPenned = _typicalSpeed * _mass /_caliber * GVAR(mmPennedCoef) / 10;
+    };
+    case "grenade": {
+
+    };
+    case "explosive": {
+
+    };
+    case "shell": {
+        _mmPenned = 1024;
+        _armorPenetrationRatio = 0.1;
+    };
 };
-private _mmPenned = (_caliber * _mass) * (GVAR(mmPennedCoef) / 100);
+
+// 获取命中子弹穿深参数
+
 
 // 多次计算可命中护甲减伤
 private _damageLeft = _damage;
 private _healthList = [];
-{ 
+{
     private _gear = _x;
 
     // 获取玩家护甲数据
@@ -33,9 +55,12 @@ private _healthList = [];
     // 只有可命中护甲才进行计算步骤
     if((_hitArmor findIf {_x isEqualTo _gear}) != -1) then {
 
-        systemChat str [_damage, _mmPenned, _hitArmor, _hitPoint];
-        systemChat str [_level, _maxhealth, _strength, _thickness, _material, _breakdownValue, _notBreakdownValue];
+        systemChat str [_damage, _mmPenned, _typeOfDamage];
+        systemChat str [_level, _maxhealth, _strength, _thickness, _material];
         systemChat str _savedHealthList;
+
+        private _bodyDamage = _damageLeft * (1 - _armorPenetrationRatio);
+        private _armorDamage = _damageLeft * _armorPenetrationRatio;
 
         // 护甲机制
         if(_health > 0) then {
@@ -46,17 +71,15 @@ private _healthList = [];
             };
 
             if (_mmPenned > _thickness) then {
-                _health = _health - (_damageLeft * _breakdownValue * 100);
-                //_strength = _strength - (_mmPenned * _breakdownValue);
+                _health = _health - (_armorDamage * _breakdownValue * 100);
                 _mmPenned = _mmPenned - (_thickness * GVAR(mmPennedBreakdownCoef));
 
-                _damageLeft = _damageLeft * (1 - _breakdownValue);
+                _damageLeft = _bodyDamage / 2;
             } else {
-                _health = _health - (_damageLeft * _notBreakdownValue * 100);
-                //_strength = _strength - (_mmPenned * _notBreakdownValue);
+                _health = _health - (_armorDamage * _notBreakdownValue * 100);
                 _mmPenned = 0;
 
-                _damageLeft = _damageLeft * GVAR(damageLeftNotBreakdownCoef);
+                _damageLeft = _bodyDamage * GVAR(damageLeftNotBreakdownCoef);
             };
 
             if(_health < 0) then {_health = 0};

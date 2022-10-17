@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="acas">
+    <Package name="Stamina">
+        <Key ID="STR_acas_Stamina_Stamina_category">
+            <English>ACAS Stamina Settings</English>
+            <Chinesesimp>ACAS体力设置</Chinesesimp>
+        </Key>
+
+        <Key ID="STR_acas_Stamina_Basic_subcategory">
+            <English>Basic Settings</English>
+            <Chinesesimp>基础设置</Chinesesimp>
+        </Key>
+    </Package>
+</Project>

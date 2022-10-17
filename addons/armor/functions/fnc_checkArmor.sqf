@@ -18,7 +18,10 @@ private _output = format ["%1级%2护甲耐久:%3 / %4", _level, _material, _hea
 [
     GVAR(timeToCheckArmor), 
     [_output, _player], 
-    {[_output, 1.5, _player] call ace_common_fnc_displayTextStructured;},
+    {
+        params["_output", "_player"];
+        [_output, 1.5, _player] call ace_common_fnc_displayTextStructured;
+    },
     {},
     "检查中",
     {(stance _player) != "PRONE"}

@@ -22,10 +22,9 @@ if ((_allDamages select 0 select 0) > 0) then {
 
 
     // _shooter and _ammo exist in the scope above
-    private _damageLeft = [_unit, _damage, _actualDamage, _shooter, _ammo, _hitArmor, _aceSelection] call FUNC(receiveDamage);
+    private _damageLeft = [_unit, _damage, _actualDamage, _shooter, _ammo, _hitArmor, _aceSelection, _typeOfDamage] call FUNC(receiveDamage);
     (_allDamages select 0) set [0, _damageLeft];
 };
 
-// if you want to do nothing, just exitWith {_this}. if you return nil or [] it will block further handling
 if (_allDamages isEqualTo []) exitWith {[]};
-[_unit, _allDamages, _typeOfDamage] //return
+[_unit, _allDamages, _typeOfDamage]
