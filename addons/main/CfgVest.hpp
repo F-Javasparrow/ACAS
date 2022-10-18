@@ -5,11 +5,11 @@ class VestItem: InventoryItem_Base_F {};
 
 class Vest_Camo_Base: ItemCore {
 	class ItemInfo: VestItem {
-		armorMaterial = "STELL";
+		ACAS_armorMaterial = "STEEL";
 	};
 };
 class Vest_NoCamo_Base: ItemCore {
 	class ItemInfo: VestItem {
-		armorMaterial = "STELL";
+		ACAS_armorMaterial = "STEEL";
 	};
 };

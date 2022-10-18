@@ -31,7 +31,7 @@ class CfgMods {
 
 class CfgWeapons {
     #include "CfgVest.hpp"
-    #include "CfgUniform.hpp"
-}
-
+};
+#include "CfgEventHandlers.hpp"
 #include "CfgAmmo.hpp"
+#include "ACE_Medical_Injuries.hpp"

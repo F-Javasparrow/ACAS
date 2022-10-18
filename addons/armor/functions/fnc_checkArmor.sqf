@@ -1,19 +1,10 @@
 #include "script_component.hpp"
 params ["_player"];
 
-private _gear = vest _player;
+private _armorInfo = [_player, "HitChest"] call FUNC(getArmorInfo);
+_armorInfo params ["_vest", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor"];
 
-_armorInfo = [_gear, "HitChest"] call FUNC(getArmorInfo);
-_armorInfo params ["_level", "_maxhealth", "_strength", "_thickness", "_material", "_breakdownValue", "_notBreakdownValue"];
-
-private _health = _maxhealth;
-private _savedHealthList = _player getVariable [QGVAR(ArmorHealth), [["", -1], ["", -1], ["", -1]]];
-private _index = _savedHealthList findIf {_x # 0 == _gear};
-if(_index != -1) then {
-    _health = _savedHealthList # _index # 1;
-};
-
-private _output = format ["%1级%2护甲耐久:%3 / %4", _level, _material, _health, _maxhealth];
+private _output = format ["%1级%2护甲耐久:%3 / %4", _level, _material, _health, _maxHealth];
 
 [
     GVAR(timeToCheckArmor), 

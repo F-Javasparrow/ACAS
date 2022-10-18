@@ -1,5 +1,5 @@
-#define COMPONENT armor
-#define COMPONENT_BEAUTIFIED ACAS - Armor
+#define COMPONENT helmet
+#define COMPONENT_BEAUTIFIED ACAS - Helmet
 #include "\x\acas\addons\main\script_mod.hpp"
 
 // #define DEBUG_MODE_FULL
