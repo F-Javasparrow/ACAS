@@ -1,28 +1,22 @@
 #include "script_component.hpp"
 params ["_player"];
 
-private _gear = vest _player;
+private _helmetInfo = [_player, "HitChest"] call FUNC(getHelmetInfo);
+_helmetInfo params ["_vest", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor"];
 
-_armorInfo = [_gear, "HitChest"] call FUNC(getHelmetInfo);
-_armorInfo params ["_level", "_maxhealth", "_strength", "_thickness", "_material", "_breakdownValue", "_notBreakdownValue"];
-
-private _health = _maxhealth;
-private _savedHealthList = _player getVariable [QGVAR(ArmorHealth), [["", -1], ["", -1], ["", -1]]];
-private _index = _savedHealthList findIf {_x # 0 == _gear};
-if(_index != -1) then {
-    _health = _savedHealthList # _index # 1;
-};
-
-private _output = format ["%1级%2头盔耐久:%3 / %4", _level, _material, _health, _maxhealth];
+private _output = formatText ["%1级%2头盔%3耐久:%4 / %5", _level, _material, lineBreak, _health, _maxHealth];
 
 [
     GVAR(timeToCheckArmor), 
     [_output, _player], 
     {
-        params["_output", "_player"];
-        [_output, 1.5, _player] call ace_common_fnc_displayTextStructured;
+        (_this # 0) params["_output", "_player"];
+        [_output, 1.5, _player, 10] call ace_common_fnc_displaytextstructured;
     },
     {},
     "检查中",
-    {(stance _player) != "PRONE"}
+    {
+        (_this # 0) params["_output", "_player"];
+        (stance _player) != "PRONE";
+    }
 ] call ace_common_fnc_progressBar;

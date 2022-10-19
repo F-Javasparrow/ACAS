@@ -31,6 +31,7 @@ class CfgMods {
 
 class CfgWeapons {
     #include "CfgVest.hpp"
+    #include "CfgHelmet.hpp"
 };
 #include "CfgEventHandlers.hpp"
 #include "CfgAmmo.hpp"

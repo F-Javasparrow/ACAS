@@ -9,7 +9,11 @@
 #define PRIORITY_STRUCTURAL 1
 
 params ["_unit", "", "_damage", "_shooter", "_ammo", "_hitPointIndex", "_instigator", "_hitpoint"];
+
+// HD sometimes triggers for remote units - ignore.
 if !(local _unit) exitWith {nil};
+
+// Get missing meta info
 private _oldDamage = 0;
 
 if (_hitPoint isEqualTo "") then {
@@ -19,13 +23,13 @@ if (_hitPoint isEqualTo "") then {
     _oldDamage = _unit getHitIndex _hitPointIndex;
 };
 
-if (!isDamageAllowed _unit || {!(_unit getVariable ["ace_medical_allowDamage", true])}) exitWith {
-    nil
-};
+// Damage can be disabled with old variable or via sqf command allowDamage
+
+if!(isDamageAllowed _unit && {(_unit getVariable ["ace_medical_allowDamage", true])}) exitWith {nil};
 
 private _newDamage = _damage - _oldDamage;
 if (_hitPoint isNotEqualTo "ace_hdbracket" && {_newDamage isEqualTo 0 || {_newDamage < 1E-3}}) exitWith {
-    nil
+    0
 };
 
 // drowning
@@ -34,7 +38,8 @@ if (
     {getOxygenRemaining _unit <= 0.5} &&
     {_damage isEqualTo (_oldDamage + 0.005)}
 ) exitWith {
-    nil
+    ["ace_medical_engine_wondReceived", [_unit, [[_newDamage, "Body", _newDamage]], _unit, "drowning"]] call CBA_fnc_localEvent;
+    0
 };
 
 // car crash
@@ -46,11 +51,14 @@ if (
     {_vehicle != _unit} &&
     {vectorMagnitude (velocity _vehicle) > 5}
 ) exitWith {
-    nil
+    ["ace_medical_engine_wondReceived", [_unit, [[_newDamage, _hitPoint, _newDamage]], _unit, "vehiclecrash"]] call CBA_fnc_localEvent;
+    0
 };
 
 
 if (_hitPoint isEqualTo "ace_hdbracket") exitWith {
+    _unit setVariable ["ace_medical_lastDamageSource", _shooter];
+    _unit setVariable ["ace_medical_lastInstigator", _instigator];
 
     private _damageStructural = _unit getVariable ["ace_medical_engine_$#structural", [0,0]];
 
@@ -89,13 +97,30 @@ if (_hitPoint isEqualTo "ace_hdbracket") exitWith {
         [_damageRightArm select 0,   PRIORITY_RIGHT_ARM,  _damageRightArm select 1,   "RightArm"],
         [_damageLeftLeg select 0,    PRIORITY_LEFT_LEG,   _damageLeftLeg select 1,    "LeftLeg"],
         [_damageRightLeg select 0,   PRIORITY_RIGHT_LEG,  _damageRightLeg select 1,   "RightLeg"],
-        [_damageStructural select 0, PRIORITY_STRUCTURAL, _damageStructural select 1, "#structural"]
+        [_damageStructural select 0, PRIORITY_STRUCTURAL, _damageStructural select 1, "#structural"] //toDo: 增加更多hitpoint
     ];
 
     _allDamages sort false;
     _allDamages = _allDamages apply {[_x select 2, _x select 3, _x select 0]};
 
-    nil
-};
+    if (_ammo isEqualTo "") then {
+        if !(isNull _shooter) then {
+            if (_shooter == _unit && {(velocity _unit select 2) < -2}) then {
+                _ammo = "falling";
+            } else {
+                _ammo = "collision";
+            };
+        } else {
+            _ammo = "fire";
+        };
+    };
 
-nil
+    if ((_allDamages select 0 select 0) > 1E-3) then {
+        ["ace_medical_engine_wondReceived", [_unit, _allDamages, _shooter, _ammo]] call CBA_fnc_localEvent;
+    };
+
+    0
+};
+if (_hitPoint in ["hithead", "hitbody", "hithands", "hitlegs"]) exitWith {_oldDamage};
+
+0

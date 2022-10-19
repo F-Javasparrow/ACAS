@@ -12,15 +12,21 @@ _armorInfo params ["_vest", "_level", "_health", "_maxHealth", "_protectionAbili
 
 // 更新数据
 _vest = vest _unit;
+if(_vest isEqualTo "") exitWith {
+    _output = [_vest, -1, 0, 0, 0, "NULL", 0];
+    _unit setVariable [QGVAR(ArmorInfo), _output, true];
+    _output;
+};
+
 _armor = getNumber(configFile >> "CfgWeapons" >> _vest >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor");
 switch(true) do {
     case(0 <= _armor && _armor < 4):   {_level = 0;_maxhealth = 0};
     case(4 <= _armor && _armor  < 10): {_level = 1;_maxhealth = 0};
-    case(10 <= _armor && _armor < 14): {_level = 2;_maxhealth = 30};
-    case(14 <= _armor && _armor < 18): {_level = 3;_maxhealth = 40};
-    case(18 <= _armor && _armor < 22): {_level = 4;_maxhealth = 50};
-    case(22 <= _armor && _armor < 26): {_level = 5;_maxhealth = 70};
-    case(26 <= _armor):                {_level = 6;_maxhealth = 75};
+    case(10 <= _armor && _armor < 14): {_level = 2;_maxhealth = GVAR(2_ArmorMaxHealth)};
+    case(14 <= _armor && _armor < 18): {_level = 3;_maxhealth = GVAR(3_ArmorMaxHealth)};
+    case(18 <= _armor && _armor < 22): {_level = 4;_maxhealth = GVAR(4_ArmorMaxHealth)};
+    case(22 <= _armor && _armor < 26): {_level = 5;_maxhealth = GVAR(5_ArmorMaxHealth)};
+    case(26 <= _armor):                {_level = 6;_maxhealth = GVAR(6_ArmorMaxHealth)};
 };
 if!(_vest isEqualTo _armorInfo # 0) then {_health = _maxhealth;};
 
@@ -36,5 +42,4 @@ _protectionAbility = (121 * _h ^ 2 + 1050) / (_h ^ 2 + 50) * sqrt(sqrt(_h / 27.8
 
 _output = [_vest, _level, _health, _maxhealth, _protectionAbility, _material, _materialDamageFactor];
 _unit setVariable [QGVAR(ArmorInfo), _output, true];
-systemChat str _output;
 _output;

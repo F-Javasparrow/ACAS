@@ -40,9 +40,9 @@ _unit setVariable [QGVAR(exhaustionEnd), 10e10];
         _unit setVariable [QGVAR(handleStamina_PFH), nil];
     };
 
-	private _armorSprintCoef = _unit getVariable ["acas_armor_armorSprintCoef", 1];
-	private _armorRunCoef    = _unit getVariable ["acas_armor_armorRunCoef", 1];
-	private _helmetAimCoef = _unit getVariable ["acas_armor_helmetAimCoef", 1];
+	private _armorSprintCoef = _unit getVariable [QEGVAR(main,armorSprintCoef), 1];
+	private _armorRunCoef    = _unit getVariable [QEGVAR(main,armorRunCoef), 1];
+	private _helmetAimCoef   = _unit getVariable [QEGVAR(main,helmetAimCoef), 1];
 
 	private _maxStamina = _defaultStamina - (_defaultStamina * load _unit);
 	private _curStamina = getStamina _unit;

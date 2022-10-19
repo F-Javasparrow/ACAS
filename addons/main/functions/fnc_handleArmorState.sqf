@@ -39,8 +39,7 @@ if (!local _unit) then {
 		};
 	};
 
-	// 头盔
-	/* 
+	// 头盔 
 	private _helmetInfo = [_unit, "HitHead"] call EFUNC(helmet,getHelmetInfo);
 	_helmetInfo params ["_helmet", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor"];
 	switch(_level) do {
@@ -56,6 +55,5 @@ if (!local _unit) then {
 		case"6": {
 			_unit setVariable [QGVAR(helmetAimCoef), 2.00];
 		};
-	}; 
-	*/
-}, 3, [_unit]] call CBA_fnc_addPerFrameHandler
+	};
+}, 5, [_unit]] call CBA_fnc_addPerFrameHandler

@@ -1,12 +1,11 @@
 #include "script_component.hpp"
 params ["_unit", "_allDamages", "_typeOfDamage"];
 
-if ((_allDamages select 0 select 0) > 0) then {
-    (_allDamages select 0) params ["_damage", "_bodyPart"];
+{
+    _x params ["_damage", "_bodyPart"];
 
-    if (_damage isEqualTo 0 || {_bodyPart == "#structural"}) exitWith {};
+    if (_damage <= 0 || {_bodyPart == "#structural"}) then {continue};
 
-    // _aceSelection is HitBody, HitLegs etc
     private _aceSelection = format ["Hit%1", _bodyPart];
     private _hitArmor = [];
     private _damageLeft = _damage;
@@ -28,8 +27,8 @@ if ((_allDamages select 0 select 0) > 0) then {
         };
     };
 
-    (_allDamages select 0) set [0, _damageLeft];
-};
+    _x set [0, _damageLeft];
+}forEach _allDamages;
 
 if (_allDamages isEqualTo []) exitWith {[]};
 [_unit, _allDamages, _typeOfDamage]
