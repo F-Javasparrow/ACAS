@@ -1,10 +1,11 @@
 #include "script_component.hpp"
 #define MATERIAL_ARAMIND     ["ARAMIND",   0.25, 0.00]
-#define MATERIAL_UHMWPE      ["UHMWPE",    0.45, 0.20]
-#define MATERIAL_COMBINED    ["COMBINED",  0.50, 0.25]
-#define MATERIAL_TITAN       ["TITAN",     0.55, 0.30]
-#define MATERIAL_STEEL       ["STEEL",     0.70, 0.30]
+#define MATERIAL_UHMWPE      ["UHMWPE",    0.45, 0.15]
+#define MATERIAL_COMBINED    ["COMBINED",  0.50, 0.20]
+#define MATERIAL_TITAN       ["TITAN",     0.55, 0.25]
+#define MATERIAL_STEEL       ["STEEL",     0.70, 0.25]
 #define MATERIAL_CERAMIC     ["CERAMIC",   0.80, 0.05]
+#define METERIALLIST         [MATERIAL_ARAMIND, MATERIAL_UHMWPE, MATERIAL_COMBINED, MATERIAL_TITAN, MATERIAL_TITAN, MATERIAL_STEEL, MATERIAL_CERAMIC]
 params["_unit", "_hitPoint"];
 
 private _helmetInfo = _unit getVariable [QGVAR(HelmetInfo), ["NULL", 0, 0, 0, 0, "ARAMIND", 0, 0]];
@@ -31,17 +32,20 @@ switch(true) do {
 };
 if!(_helmet isEqualTo _helmetInfo # 0) then {_health = _maxhealth;};
 
-_material = "ARAMIND";
-_material = getText(configFile >> "CfgWeapons" >> _helmet >> "ItemInfo" >> "ACAS_armorMaterial");
-_meterialList = [MATERIAL_ARAMIND, MATERIAL_UHMWPE, MATERIAL_COMBINED, MATERIAL_TITAN, MATERIAL_TITAN, MATERIAL_STEEL, MATERIAL_CERAMIC];
-_materialDamageFactor = _meterialList # (_meterialList findIf {_x # 0 == _material}) # 1;
-_ricochetFactor       = _meterialList # (_meterialList findIf {_x # 0 == _material}) # 2;
+_material = getText(configFile >> "CfgWeapons" >> _helmet >> "ACAS_armorMaterial");
+_materialInfo = METERIALLIST # (METERIALLIST findIf {_x # 0 == _material});
+_materialDamageFactor = _materialInfo # 1;
+_ricochetFactor       = _materialInfo # 2;
 
 _protectionAbility = 0;
 _h = 0;
-if(_health * _maxHealth != 0) then {_h = _health / _maxHealth} 
-else {_h = 0};
+if(_health > 0 && _maxHealth > 0) then {
+        _h = _health / _maxHealth;
+    } else {
+        _h = 0;
+    };
 _protectionAbility = (121 * _h ^ 2 + 1050) / (_h ^ 2 + 50) * sqrt(sqrt(_h / 27.8)) * _level * (GVAR(HelmetArmorCoef) / 100);
+if(_protectionAbility < 0) then {_protectionAbility = 0};
 
 _output = [_helmet, _level, _health, _maxhealth, _protectionAbility, _material, _materialDamageFactor, _ricochetFactor];
 _unit setVariable [QGVAR(HelmetInfo), _output, true];

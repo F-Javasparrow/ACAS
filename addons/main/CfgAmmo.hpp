@@ -178,6 +178,7 @@ class CfgAmmo {
   };
   class rhs_ammo_46x30_JHP: rhs_ammo_46x30_FMJ {
     ACAS_penetration = 18;
+    ACAS_armorPenetrationRatio = JHP;
   };
   class rhs_ammo_46x30_AP: rhs_ammo_46x30_FMJ {
     ACAS_penetration = 53;
@@ -191,6 +192,7 @@ class CfgAmmo {
   };
   class rhs_ammo_9x19_JHP: BulletBase {
     ACAS_penetration = 2;
+    ACAS_armorPenetrationRatio = JHP;
   };
 
 	// 红锤

@@ -17,11 +17,11 @@
 #define TYPE_FLASHLIGHT      301
 #define TYPE_BIPOD           302
 #define TYPE_FIRST_AID_KIT   401
-#define TYPE_FINS            501 // not implemented
-#define TYPE_BREATHING_BOMB  601 // not implemented
+#define TYPE_FINS            501
+#define TYPE_BREATHING_BOMB  601
 #define TYPE_NVG             602
 #define TYPE_GOGGLE          603
-#define TYPE_SCUBA           604 // not implemented
+#define TYPE_SCUBA           604
 #define TYPE_HEADGEAR        605
 #define TYPE_FACTOR          607
 #define TYPE_RADIO           611

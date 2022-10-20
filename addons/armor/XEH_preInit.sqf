@@ -17,52 +17,47 @@ private _subCategory = "基础设置";
 ] call CBA_fnc_addSetting;
 
 // Armor Default Setting
-private _subCategory = "2";
 [
     QGVAR(2_ArmorMaxHealth),
     "SLIDER",
     ["护甲血量", "护甲血量"],
-    [_category, _subCategory],
+    [_category, "2"],
     [0, 80, 30, 1],
     true
 ] call CBA_fnc_addSetting;
 
-private _subCategory = "3";
 [
     QGVAR(3_ArmorMaxHealth),
     "SLIDER",
     ["护甲血量", "护甲血量"],
-    [_category, _subCategory],
+    [_category, "3"],
     [0, 80, 40, 1],
     true
 ] call CBA_fnc_addSetting;
 
-private _subCategory = "4";
 [
     QGVAR(4_ArmorMaxHealth),
     "SLIDER",
     ["护甲血量", "护甲血量"],
-    [_category, _subCategory],
+    [_category, "4"],
     [0, 80, 50, 1],
     true
 ] call CBA_fnc_addSetting;
 
-private _subCategory = "5";
 [
     QGVAR(5_ArmorMaxHealth),
     "SLIDER",
     ["护甲血量", "护甲血量"],
-    [_category, _subCategory],
+    [_category, "5"],
     [0, 80, 70, 1],
     true
-] call CBA_fnc_addSetting;s
+] call CBA_fnc_addSetting;
 
-private _subCategory = "6";
 [
     QGVAR(6_ArmorMaxHealth),
     "SLIDER",
     ["护甲血量", "护甲血量"],
-    [_category, _subCategory],
+    [_category, "6"],
     [0, 80, 75, 1],
     true
 ] call CBA_fnc_addSetting;

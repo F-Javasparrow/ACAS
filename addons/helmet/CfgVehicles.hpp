@@ -1,8 +1,13 @@
 class CfgVehicles {
+
+    // ACE互动
     class Man;
     class CAManBase: Man {
         class ACE_SelfActions {
-            class ACE_Equipment {
+            class ACAS_Armor {
+                displayName = "护甲";
+                condition = "";
+                statement = "";
                 class ACAS_CheckHelmet {
                     displayName = "检查头盔";
                     condition = "(stance _player) != 'PRONE'";
