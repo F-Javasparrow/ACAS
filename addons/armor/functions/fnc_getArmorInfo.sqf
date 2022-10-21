@@ -1,16 +1,12 @@
 #include "script_component.hpp"
-#define MATERIAL_ARAMIND     ["ARAMIND",   0.25]
-#define MATERIAL_UHMWPE      ["UHMWPE",    0.45]
-#define MATERIAL_COMBINED    ["COMBINED",  0.50]
-#define MATERIAL_TITAN       ["TITAN",     0.55]
-#define MATERIAL_STEEL       ["STEEL",     0.70]
-#define MATERIAL_CERAMIC     ["CERAMIC",   0.80]
-#define METERIALLIST         [MATERIAL_ARAMIND, MATERIAL_UHMWPE, MATERIAL_COMBINED, MATERIAL_TITAN, MATERIAL_TITAN, MATERIAL_STEEL, MATERIAL_CERAMIC]
 params["_unit", "_hitPoint"];
 
+_hitPoint = reverse(_hitPoint splitString "")
+_hitPoint = reverse(_hitPoint resize (count _hitPoint) - 3);
+
 // 护甲
-private _armorInfo = _unit getVariable [QGVAR(ArmorInfo), ["NULL", 0, 0, 0, 0, "ARAMIND", 0]];
-_armorInfo params ["_vest", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor"];
+private _armorInfo = _unit getVariable [QGVAR(ArmorInfo), ["NULL", 0, 0, 0, 0, "ARAMIND", 0, 0]];
+_armorInfo params ["_vest", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_damageFactor", "_explosiveDamageFactor"];
 
 _vest = vest _unit;
 _armorData = [_vest, -1, 0, 0, 0, "NULL", 0];
@@ -29,7 +25,9 @@ if!(_vest isEqualTo "") then {
     if!(_vest isEqualTo _armorInfo # 0) then {_health = _maxhealth;};
 
     _material = getText(configFile >> "CfgWeapons" >> _vest >> "ACAS_armorMaterial");
-    _materialDamageFactor = METERIALLIST # (METERIALLIST findIf {_x # 0 == _material}) # 1;
+    _materialInfo = METERIALLIST # (METERIALLIST findIf {_x # 0 == _material});
+    _damageFactor = _materialInfo # 1;
+    _explosiveDamageFactor = _materialInfo # 2;
 
     _protectionAbility = 0;
     _h = 0;
@@ -40,21 +38,25 @@ if!(_vest isEqualTo "") then {
     };
     _protectionAbility = ((121 * _h ^ 2 + 1050) / (_h ^ 2 + 50)) * sqrt(sqrt(_h / 27.8)) * _level;
 
-    _armorData = [_vest, _level, _health, _maxhealth, _protectionAbility, _material, _materialDamageFactor];
+    _armorData = [_vest, _level, _health, _maxhealth, _protectionAbility, _material, _damageFactor, _explosiveDamageFactor];
+    _armorSpcData = [_hitPoint, _protectionAbility];
 };
 _unit setVariable [QGVAR(ArmorInfo), _armorData, true];
 
-// 额外插板
-private _plateInfo = _unit getVariable [QGVAR(PlateInfo), ["NULL", 0, 0, 0, 0, "NULL", 0]];
-_plateInfo params ["_plate", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor"];
+// 额外插板 [WIP]
+private _plateInfo = _unit getVariable [QGVAR(PlateInfo), ["NULL", 0, 0, 0, 0, "NULL", 0, 0]];
+_plateInfo params ["_plate", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_damageFactor", "_explosiveDamageFactor"];
 
 _plateData = ["", -1, 0, 0, 0, "NULL", 0];
 
 if!(_plate isEqualTo "") then {
-    _level = 2.5;
+    _level = getNumber(configFile >> "CfgWeapons" >> _vest >> "ACAS_level");
+    _material = getText(configFile >> "CfgWeapons" >> _vest >> "ACAS_armorMaterial");
+
     _maxhealth = GVAR(PlateMaxHealth);
-    _material = "CERAMIC";
-    _materialDamageFactor = METERIALLIST # (METERIALLIST findIf {_x # 0 == _material}) # 1;
+    _materialInfo = METERIALLIST # (METERIALLIST findIf {_x # 0 == _material});
+    _damageFactor = _materialInfo # 1;
+    _explosiveDamageFactor = _materialInfo # 2;
 
     _protectionAbility = 0;
     _h = 0;
@@ -66,7 +68,7 @@ if!(_plate isEqualTo "") then {
     _protectionAbility = (121 * _h ^ 2 + 1050) / (_h ^ 2 + 50) * sqrt(sqrt(_h / 27.8)) * _level;
     if(_protectionAbility < 0) then {_protectionAbility = 0};
 
-    _plateData = [_vest, _level, _health, _maxhealth, _protectionAbility, _material, _materialDamageFactor];
+    _plateData = [_vest, _level, _health, _maxhealth, _protectionAbility, _material, _damageFactor, _explosiveDamageFactor];
 };
 _unit setVariable [QGVAR(PlateInfo), _plateData, true];
 

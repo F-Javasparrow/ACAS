@@ -3,8 +3,12 @@
 class CfgPatches {
     class ADDON {
         name = COMPONENT_NAME;
-        units[] = {};
-        weapons[] = {};
+        units[] = {
+            "ACAS_armorPlate_Item"
+        };
+        weapons[] = {
+            "ACAS_armorPlate"
+        };
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {
             "cba_main",
@@ -19,3 +23,4 @@ class CfgPatches {
 
 #include "CfgEventHandlers.hpp"
 #include "CfgVehicles.hpp"
+#include "CfgWeapons.hpp"

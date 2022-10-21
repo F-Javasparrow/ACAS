@@ -1,6 +1,7 @@
 #define COMPONENT stamina
 #define COMPONENT_BEAUTIFIED ACAS - Stamina
 #include "\x\acas\addons\main\script_mod.hpp"
+#include "\x\acas\addons\main\define.hpp"
 
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE

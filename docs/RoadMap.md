@@ -2,17 +2,17 @@
 
 ## 护甲机制
 
-### 伤害类型
+### 伤害类型:
 
 * [X] 子弹相关基本护甲机制
-* [ ] 爆炸相关基本护甲机制 [WIP]
+* [X] 爆炸相关基本护甲机制
 
-### 子弹数据
+### 子弹数据:
 
 * [X] 穿透力
 * [X] 护甲伤害比率
 
-### 材质属性
+### 材质属性:
 
 芳纶(凯夫拉) [Aramind]
 
@@ -26,7 +26,7 @@
 
 陶瓷            [Ceramic]
 
-### 防护力
+### 防护力分类:
 
 见 [Classes of body armor protection Russian Federation | Shootinfo.com](https://shootinfo.com/classes-of-body-armor-protection-in-the-russian-federation/)
 
@@ -61,9 +61,10 @@
 * [ ] BI武器库/ACE武器库自动维修护甲
 * [ ] 战斗中应急维修护甲
 * [ ] AI维修护甲?
-* [X] 额外插板
+* [ ] 额外插板
 
 # 体力系统
 
 * [X] 基于原版体力系统的重建
 * [X] 护甲及头盔对体力系统的影响
+* [ ] ACE进阶体力系统的兼容

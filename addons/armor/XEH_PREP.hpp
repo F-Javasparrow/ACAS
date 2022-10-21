@@ -1,5 +1,10 @@
+PREP(addPlate);
 PREP(calculateDamage);
+PREP(calculateExplosive);
+PREP(canAddPlate);
+PREP(canFixArmor);
 PREP(CheckArmor);
+PREP(fixArmor);
 PREP(getArmorInfo);
 PREP(getAmmoInfo);
 PREP(receiveDamage);

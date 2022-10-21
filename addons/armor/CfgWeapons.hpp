@@ -1,18 +1,22 @@
 class CfgWeapons {
-	class ItemCore;
-    class CBA_MiscItem ;
+	class ACE_ItemCore;
     class CBA_MiscItem_ItemInfo;
 
-    class GVAR(plate): CBA_MiscItem  {
+    class ACAS_armorPlate: ACE_ItemCore  {
         scope = 2;
+        scopeCurator = 2;
+        scopeArsenal = 2;
         author = "Javasparrow";
-        // model = QPATHTOF(data\armor_plate.p3d);
-        // picture = QPATHTOF(ui\armor_plate_ca.paa);
+        // model = QPATHTOF(data\plate.p3d);
+        picture = QPATHTOF(ui\plate_ca.paa);
         displayName = "防弹插板";
         descriptionShort = "通用III级防弹插板";
         descriptionUse = "通用III级防弹插板";
         class ItemInfo: CBA_MiscItem_ItemInfo {
-            mass = 5;
+            mass = 10;
         };
+
+        ACAS_level = "2.5";
+        ACAS_armorMaterial = "CERAMIC";
     };
 };

@@ -1,6 +1,7 @@
 #define COMPONENT main
 #define COMPONENT_BEAUTIFIED Main
 #include "\x\acas\addons\main\script_mod.hpp"
+#include "define.hpp"
 
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE

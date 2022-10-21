@@ -1,11 +1,4 @@
 #include "script_component.hpp"
-#define MATERIAL_ARAMIND     ["ARAMIND",   0.25, 0.00]
-#define MATERIAL_UHMWPE      ["UHMWPE",    0.45, 0.15]
-#define MATERIAL_COMBINED    ["COMBINED",  0.50, 0.20]
-#define MATERIAL_TITAN       ["TITAN",     0.55, 0.25]
-#define MATERIAL_STEEL       ["STEEL",     0.70, 0.25]
-#define MATERIAL_CERAMIC     ["CERAMIC",   0.80, 0.05]
-#define METERIALLIST         [MATERIAL_ARAMIND, MATERIAL_UHMWPE, MATERIAL_COMBINED, MATERIAL_TITAN, MATERIAL_TITAN, MATERIAL_STEEL, MATERIAL_CERAMIC]
 params["_unit", "_hitPoint"];
 
 private _helmetInfo = _unit getVariable [QGVAR(HelmetInfo), ["NULL", 0, 0, 0, 0, "ARAMIND", 0, 0]];
@@ -20,7 +13,7 @@ if(_vest isEqualTo "") exitWith {
     _output;
 };
 
-_armor = getNumber(configFile >> "CfgWeapons" >> _helmet >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Chest" >> "armor");
+_armor = getNumber(configFile >> "CfgWeapons" >> _helmet >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor");
 switch(true) do {
     case(0 <= _armor && _armor<= 4):   {_level = 0;_maxhealth = 0};
     case(4 <  _armor && _armor  < 10): {_level = 1;_maxhealth = GVAR(1_ArmorMaxHealth)};

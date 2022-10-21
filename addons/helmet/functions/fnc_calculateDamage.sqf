@@ -1,15 +1,17 @@
 #include "script_component.hpp"
-params ["_unit", "_damage", "_ammo", "_hitArmor", "_hitPoint", "_typeOfDamage"];
+params ["_unit", "_damage", "_ammo", "_hitArmor", "_hitPoint"];
 
-private _damageLeft = _damage * 3;
+private _damageLeft = _damage * 1.2;
 
 // 获取子弹数据
-private _ammoInfo = [_ammo, _typeOfDamage] call EFUNC(armor,getAmmoInfo);
+private _ammoInfo = [_ammo, "bullet"] call EFUNC(armor,getAmmoInfo);
 _ammoInfo params ["_caliber", "_mass", "_typicalSpeed", "_armorPenetration", "_penetration"];
 
 // 获取护甲数据
 private _armorInfo = [_unit, _hitPoint] call FUNC(gethelmetInfo);
 _armorInfo params ["_helmet", "_level", "_health", "_maxHealth", "_protectionAbility", "_material", "_materialDamageFactor", "_ricochetFactor"];
+
+// systemChat str (_armorInfo # 0);
 
 // 头盔机制
 if(random 100 < _ricochetFactor) then {

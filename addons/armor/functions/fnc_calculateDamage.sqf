@@ -1,10 +1,10 @@
 #include "script_component.hpp"
-params ["_unit", "_damage", "_ammo", "_hitArmor", "_hitPoint", "_typeOfDamage"];
+params ["_unit", "_damage", "_ammo", "_hitArmor", "_hitPoint"];
 
-private _damageLeft = _damage * 3;
+private _damageLeft = _damage;
 
 // 获取子弹数据
-private _ammoInfo = [_ammo, _typeOfDamage] call FUNC(getAmmoInfo);
+private _ammoInfo = [_ammo, "bullet"] call FUNC(getAmmoInfo);
 _ammoInfo params ["_caliber", "_mass", "_typicalSpeed", "_armorPenetration", "_penetration"];
 
 // 获取护甲数据
@@ -12,7 +12,7 @@ private _armorInfo = [_unit, _hitPoint] call FUNC(getArmorInfo);
 (_armorInfo # 0) params ["", "", "_health", "_maxHealth", "_protectionAbility", "", "_materialDamageFactor"];
 (_armorInfo # 1) params ["", "", "_pHealth", "_pMaxHealth", "_pProtectionAbility", "", "_pMaterialDamageFactor"];
 
-systemChat str (_armorInfo # 0);
+// systemChat str (_armorInfo # 0);
 
 // 护甲机制
 if(0 < _pHealth && _pHealth <= _pMaxHealth) then {
