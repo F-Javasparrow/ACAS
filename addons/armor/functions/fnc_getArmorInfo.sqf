@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 params["_unit", "_hitPoint"];
 
-_hitPoint = reverse(_hitPoint splitString "")
+_hitPoint = reverse(_hitPoint splitString "");
 _hitPoint = reverse(_hitPoint resize (count _hitPoint) - 3);
 
 // 护甲
